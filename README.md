@@ -10,4 +10,5 @@ The bot currently runs as Jellie_bot in GoodTimesWithScar's streams, D_A_I_N_A i
 
 Currently, Zapdosbot is in public beta in Zapdos26's channel (https://www.twitch.tv/zapdos26) with it being able to come into your channel for either testing or for actual use. :) Just do !join and if the bot is modded in your channel, it will remain in your channel unless you either do !part or you unmod the bot.
 
+Also, check back often if an issue is found, because more likely than not I would have already discovered it and fixed it :) 
 If you have any questions, feel free to tweet me at @zapdos26.
