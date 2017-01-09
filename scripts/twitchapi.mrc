@@ -1,4 +1,4 @@
-
+//Instrctions on how to get you client ID can be found here:https://blog.twitch.tv/client-id-required-for-kraken-api-calls-afbb8e95f843#.pmhe72yy4
 alias twitchuptime {
   JSONOpen -uw uptime https://api.twitch.tv/kraken/streams/ $+ $1 $+ ?nocache= $+ $ticks
   JSONUrlHeader uptime Client-ID [Put Client Id Here]
