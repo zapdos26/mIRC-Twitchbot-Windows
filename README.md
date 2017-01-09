@@ -4,6 +4,8 @@ The focus of the bot is fit the needs of the streamer, not the streamer fit the 
 
 A list of commands can be found here: https://goo.gl/o1Otwc
 
+For instructions on how to obtain a Client ID, see https://blog.twitch.tv/client-id-required-for-kraken-api-calls-afbb8e95f843#.i96cq1if5
+
 The bot currently runs as Jellie_bot in GoodTimesWithScar's streams, D_A_I_N_A in zueljin's streams, Welsbot in Welsknight streams, and Ak47PomPoms in Chickenb0ne's streams.
 
 Currently, Zapdosbot is in public beta in Zapdos26's channel (https://www.twitch.tv/zapdos26) with it being able to come into your channel for either testing or for actual use. :) Just do !join and if the bot is modded in your channel, it will remain in your channel unless you either do !part or you unmod the bot.
