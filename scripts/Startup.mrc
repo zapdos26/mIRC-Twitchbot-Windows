@@ -37,6 +37,7 @@ on *:join:#: {
     /hmake # $+ commandcounts
     /hmake # $+ commandcooldowns
     /hmake # $+ protection
+    /hmake # $+ settings
     /hload -i  # $+ commands channeldata/ $+ # $+ .ini commandmessages
     /hload -i # $+ commandcooldowns channeldata/ $+ # $+ .ini commandcooldowns
     /hload -i  # $+ commanduserlevels channeldata/ $+ # $+ .ini commanduserlevels
@@ -45,6 +46,7 @@ on *:join:#: {
     /hload -i emotes. $+ #  channeldata/ $+ # $+ .ini emotes
     /hload -i blacklist. $+ # channeldata/ $+ # $+ .ini blacklist  
     /hload -i # $+ protection channeldata/ $+ # $+ .ini protectionsettings
+    /hload -i # $+ settings channeldata/ $+ # $+ .ini settings
     /hmake # $+ timermessages
     /hmake # $+ timertimelength
     /hmake # $+ timerchatlength
