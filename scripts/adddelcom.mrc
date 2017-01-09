@@ -1,6 +1,14 @@
 alias -l customcooldown {
   return -u $+ $1
 }
+alias commandaliases {
+  var %com = $hget($1 $+ commands,$2)
+  while (-alias=* iswm %com) {
+    var %command  $remove(%com,-alias=)
+    var %com $hget($1 $+ commands, %command)
+  }
+  return %com
+}
 on *:text:!addcom *:#: {
   if ($msgtags(mod).key == 1 || $right(#,-1) == $nick) {
     var %com = $3-
@@ -28,10 +36,10 @@ on *:text:!addcom *:#: {
     }
     /hadd # $+ commands $2 %com
     /hadd # $+ commandcounts $2 0
-    /hsave -i channeldata/ $+ # $+ commands # $+ .ini commandmessages
-    /hsave -i channeldata/ $+ # $+ commandcooldowns # $+ .ini commandcooldowns
-    /hsave -i channeldata/ $+ # $+ commanduserlevels # $+ .ini commanduserlevels
-    /hsave -i channeldata/ $+ # $+ commandcounts # $+ .ini commandcounts
+    /hsave -i   # $+ commands channeldata/ $+ # $+ .ini commandmessages
+    /hsave -i  # $+ commandcooldowns channeldata/ $+ # $+ .ini commandcooldowns
+    /hsave -i # $+ commanduserlevels channeldata/ $+ # $+ .ini commanduserlevels
+    /hsave -i  # $+ commandcounts channeldata/ $+ # $+ .ini commandcounts
     msg $chan /me + Command $2 has been added to the database!
   }
 }
@@ -42,10 +50,10 @@ on *:text:!delcom *:#: {
     /hdel # $+ commanduserlevels $2
     /hdel # $+ commandcooldowns $2
     /hdel # $+ commandcounts $2
-    /hsave -i channeldata/ $+ # $+ commands # $+ .ini commandmessages
-    /hsave -i channeldata/ $+ # $+ commandcooldowns # $+ .ini commandcooldowns
-    /hsave -i channeldata/ $+ # $+ commanduserlevels # $+ .ini commanduserlevels
-    /hsave -i channeldata/ $+ # $+ commandcounts # $+ .ini commandcounts
+    /hsave -i  # $+ commands channeldata/ $+ # $+ .ini commandmessages
+    /hsave -i # $+ commandcooldowns channeldata/ $+ # $+ .ini commandcooldowns
+    /hsave -i # $+ commanduserlevels channeldata/ $+ # $+ .ini commanduserlevels
+    /hsave -i  # $+ commandcounts channeldata/ $+ # $+ .ini commandcounts
     msg $chan /me - Command $2 has been deleted from the database!
   }
 }
@@ -71,10 +79,10 @@ on *:text:!editcom *:#: {
     if ($len(%com) != 0) {
       /hadd # $+ commands $2 %com
     }
-    /hsave -i channeldata/ $+ # $+ commands # $+ .ini commandmessages
-    /hsave -i channeldata/ $+ # $+ commandcooldowns # $+ .ini commandcooldowns
-    /hsave -i channeldata/ $+ # $+ commanduserlevels # $+ .ini commanduserlevels
-    /hsave -i channeldata/ $+ # $+ commandcounts # $+ .ini commandcounts
+    /hsave -i # $+ commands channeldata/ $+ # $+ .ini commandmessages
+    /hsave -i  # $+ commandcooldowns channeldata/ $+ # $+ .ini commandcooldowns
+    /hsave -i  # $+ commanduserlevels channeldata/ $+ # $+ .ini commanduserlevels
+    /hsave -i # $+ commandcounts channeldata/ $+ # $+ .ini commandcounts
     msg $chan /me -> Command $2 has been updated!
   }
 }
@@ -86,7 +94,7 @@ ON *:TEXT:*:#: {
   .set -u5 %floodcommod. $+ $1 $+ . $+ # On
   .set $customcooldown($hget(# $+ commandcooldowns,$1)) %floodcom. $+ $1 $+ . $+ # On
   var %owner $right(#,-1)
-  var %com $hget(# $+ commands,$1)
+  var %com = $commandaliases(#,$1)
   var %com $replace(%com,@touser@,$iif($2,$2,$nick),@user@,$nick,@channel@,$mid(#,2-))
   if ($hget(# $+ commanduserlevels,$1) == sub) && (($msgtags(mod).key != 1) && ($msgtags(subscriber).key != 1) && ($nick != %owner)) { return }
   if ($hget(# $+ commanduserlevels,$1) == reg) && (($msgtags(mod).key != 1) && (Regular. $+ # !isin $level($nick)) && ($nick != %owner))  { return }
@@ -96,7 +104,7 @@ ON *:TEXT:*:#: {
   /hinc # $+ commandcounts $1 1
   if (@count@ isin %com) { 
     var %com $reptok(%com, @count@, $hget(# $+ commandcounts,$1), 1, 32) 
-    /hsave -i channeldata/ $+ # $+ commandcounts # $+ .ini commandcounts
+    /hsave -i # $+ commandcounts channeldata/ $+  # $+ .ini commandcounts
   }
   if (@uptime@ isin %com) { 
     var %uptime $twitchuptime($right(#,-1))
@@ -105,11 +113,8 @@ ON *:TEXT:*:#: {
   if (@followage@ isin %com) {
     var %com = $replace(%com,@followage@,$followage($iif($2,$2,$nick),$right(#,-1)))
   }
-  if (@followers@ isin %com) {
-    var %com = $replace(%com,@followers@,$followers($right(#,-1)))
-  }
-  if (@game@ isin %com) {
-    var %com = $replace(%com,@game@,$game($right(#,-1)))
+  if (@followers@ isin %com || @views@ isin %com || @game@ isin %com || @title@ isin %com || @status isin %com) {
+    var %com = $TwitchAPI($right(#,-1),%com)
   }
   msg $chan %com
   if ( !commands == $1 ) && ( $msgtags(mod).key == 1 || ($nick == %owner)) { msg # .w $nick A list of commands to setup the bot can be found here: https://goo.gl/o1Otwc }
