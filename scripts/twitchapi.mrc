@@ -30,7 +30,6 @@ alias TwitchAPI {
     var %com = $replace(%com,@followers@,$JSON(%json, followers))
   }
   if (@game@ isin %com) {
-    msg $1 Hu
     var %com = $replace(%com,@game@,$JSON(%json,game))
   }
   if (@title@ isin %com) || (@status@ isin %com) {
