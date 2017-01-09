@@ -1,3 +1,4 @@
+
 alias twitchuptime {
   JSONOpen -uw uptime https://api.twitch.tv/kraken/streams/ $+ $1 $+ ?nocache= $+ $ticks
   JSONUrlHeader uptime Client-ID [Put Client Id Here]
@@ -21,25 +22,24 @@ alias followage {
   return Not Following
 }
 
-alias followers {
+alias TwitchAPI {
   var %json = TwitchStreamUpdate
   JSONOpen -du %json https://api.twitch.tv/kraken/channels/ $+ $1 $+ ?client_id=[Put Client Id Here]
-  var %followers = $JSON(%json, followers)
-  if (%followers) {
-    return %followers
+  var %com = $2-
+  if (@followers@ isin %com) {
+    var %com = $replace(%com,@followers@,$JSON(%json, followers))
   }
-}
-alias title {
-  var %json = TwitchStreamUpdate
-  JSONOpen -du %json https://api.twitch.tv/kraken/channels/ $+ $1 $+ ?client_id=[Put Client Id Here]
-  var %status = $JSON(%json, status)
-  return %status
-}
-alias game {
-  var %json = TwitchStreamUpdate
-  JSONOpen -du %json https://api.twitch.tv/kraken/channels/ $+ $1 $+ ?client_id=[Put Client Id Here]
-  var %game = $JSON(%json, game)
-  return %game
+  if (@game@ isin %com) {
+    msg $1 Hu
+    var %com = $replace(%com,@game@,$JSON(%json,game))
+  }
+  if (@title@ isin %com) || (@status@ isin %com) {
+    var %com = $replace(%com,@title@,$JSON(%json,status),@status@,$JSON(%json,status))
+  }
+  if (@views@ isin %com) {
+    var %com = $replace(%com,@views@,$JSON(%json,views))
+  }
+  return %com
 }
 
 alias TwitchTime {
