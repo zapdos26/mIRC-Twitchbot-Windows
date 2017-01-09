@@ -1,5 +1,5 @@
 on *:text:!protection*:#:{
-  if (( $right(#,-1) == $nick) && ( $2 == default ) && ( $3 == set )) {
+  if (($right(#,-1) == $nick) && ( $2 == default ) && ( $3 == set )) {
     if ($hget(# $+ protection) != $null) {
       /hfree # $+ protection
     }
@@ -54,7 +54,7 @@ on *:text:!protection*:#:{
     /hadd  # $+ protection blacklist.sub off
     /hadd  # $+ protection symbol.sub off 
     /hadd  # $+ protection fakedonation.sub off 
-    /hsave -i  # $+ protection # $+ .ini protectionsettings
+    /hsave -i  # $+ protection channeldata\ $+ # $+ .ini protectionsettings
     msg # The bot's default settings has been set for this channel.
     /hmake emotes. $+ # 
     /hmake blacklist. $+ #
