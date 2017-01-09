@@ -22,9 +22,9 @@ on *:text:!timer *:#: {
         else { hadd # $+ timerchatlength $3 100 }
         hadd  # $+ timermessages $3 %timer
         .timer $+ $3 $+ $chan 0 $hget(# $+ timertimelength,$3) TimerRun # $3
-        /hsave -i channeldata\ $+ # $+ timermessages # $+ .ini timermessages
-        /hsave -i channeldata\ $+ # $+ timertimelength # $+ .ini timertimelength
-        /hsave -i channeldata\ $+ # $+ timerchatlength # $+ .ini timerchatlength
+        /hsave -i # $+ timermessages channeldata\ $+ # $+ .ini timermessages
+        /hsave -i  # $+ timertimelength channeldata\ $+ # $+ .ini timertimelength
+        /hsave -i# $+ timerchatlength channeldata\ $+ # $+ .ini timerchatlength
         msg $chan /me + Timer $3 has been added to the database!
       }
     }
@@ -33,9 +33,9 @@ on *:text:!timer *:#: {
       /hdel # $+ timermessages $3      
       /hdel  # $+ timertimelength $3
       /hdel # $+ timerchatlength $3
-      /hsave -i channeldata\ $+ # $+ timermessages # $+ .ini timermessages
-      /hsave -i channeldata\ $+ # $+ timertimelength # $+ .ini timertimelength
-      /hsave -i channeldata\ $+ # $+ timerchatlength # $+ .ini timerchatlength
+      /hsave -i # $+ timermessages channeldata\ $+ # $+ .ini timermessages
+      /hsave -i # $+ timertimelength channeldata\ $+ # $+ .ini timertimelength
+      /hsave -i # $+ timerchatlength channeldata\ $+ # $+ .ini timerchatlength
       .timer $+ $3 $+ . $+ $chan off
       msg $chan /me - Timer $3 has been deleted from the database!
     }
@@ -61,9 +61,9 @@ on *:text:!timer *:#: {
         hadd  # $+ timermessages $3 %timer
       }
       .timer $+ $3 $+ $chan 0 $hget(# $+ timertimelength,$3) TimerRun # $3 
-      /hsave -i channeldata\ $+ # $+ timermessages # $+ .ini timermessages
-      /hsave -i channeldata\ $+ # $+ timertimelength # $+ .ini timertimelength
-      /hsave -i channeldata\ $+ # $+ timerchatlength # $+ .ini timerchatlength
+      /hsave -i  # $+ timermessages channeldata\ $+ # $+ .ini timermessages
+      /hsave -i # $+ timertimelength channeldata\ $+ # $+ .ini timertimelength
+      /hsave -i  # $+ timerchatlength channeldata\ $+ # $+ .ini timerchatlength
       msg $chan /me -> Timer $3 has been updated!
     }
     if ($2 == on) {
