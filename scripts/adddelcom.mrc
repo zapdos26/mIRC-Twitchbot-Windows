@@ -113,7 +113,7 @@ ON *:TEXT:*:#: {
   if (@followage@ isin %com) {
     var %com = $replace(%com,@followage@,$followage($iif($2,$2,$nick),$right(#,-1)))
   }
-  if (@followers@ isin %com || @views@ isin %com || @game@ isin %com || @title@ isin %com || @status isin %com) {
+  if (@followers@ isin %com || @views@ isin %com || @game@ isin %com || @title@ isin %com || @status@ isin %com) {
     var %com = $TwitchAPI($right(#,-1),%com)
   }
   msg $chan %com
