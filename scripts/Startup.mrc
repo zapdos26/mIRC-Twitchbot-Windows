@@ -4,8 +4,6 @@ alias savevariablesandusers {
 }
 on *:start: {
   /load -rvN vars.ini
-  /hmake allemotes 1000
-  /hload allemotes allemotes.txt
   .timersave -i 0 30 savevariablesandusers 
   server irc.chat.twitch.tv 6667 [oauth token] -i [Bot Name] -j [#Channel_Name]
 }
