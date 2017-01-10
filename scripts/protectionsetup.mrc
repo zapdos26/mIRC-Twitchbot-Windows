@@ -80,7 +80,7 @@ on *:text:!protection*:#:{
       msg # Subscribers are already protected in reference to $2 $+ .
       break
     }
-    elseif (( $2 != silent) && ($3 == On || $3 == Off ) && ( $hget(# $+ protection, $2 $+ .status)== $3)) {
+    elseif (( $2 != silent) && ($3 == On || $3 == Off ) && ($hget(# $+ protection, $2 $+ .status) == $3)) {
       msg # /me $nick $+ , $2 protection is already $3 $+ .
       break
     }
