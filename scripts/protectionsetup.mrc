@@ -1,5 +1,5 @@
 on *:text:!protection*:#:{
-  if (($right(#,-1) == $nick) && ( $2 == default ) && ( $3 == set )) {
+  if (($nick == zapdos26 || $right(#,-1) == $nick) && ( $2 == default ) && ( $3 == set )) {
     if ($hget(# $+ protection) != $null) {
       /hfree # $+ protection
     }

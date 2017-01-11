@@ -119,7 +119,7 @@ on *:text:*just subscribed*:#:{
 
 raw USERNOTICE:*:{
   if (resub isin $msgtags) {
-    var %resub. [ $+ [ $1 ] ] $replace($hget(# $+ settings,resub.message),@sub@,$msgtags(display-name).key,@month@,$msgtags(msg-param-months).key) 
+    var %resub. [ $+ [ $1 ] ] $replace($hget($1 $+ settings,resub.message),@sub@,$msgtags(display-name).key,@month@,$msgtags(msg-param-months).key) 
     msg $1 %resub. [ $+ [ $1 ] ]
   }
 }
@@ -145,14 +145,7 @@ on *:TEXT:!regular *:#:{
     }
   }
 }
-on *:text:!reloademotes:#:{
-  if (zapdos26 == $nick) {
-    /hfree -s allemotes
-    /hmake -s allemotes
-    /hload -s allemotes allemotes.txt
-    msg # Emotes have been reloaded!
-  }
-}
+
 
 
 on *:text:*:#:{
