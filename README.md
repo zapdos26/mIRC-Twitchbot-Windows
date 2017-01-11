@@ -14,3 +14,5 @@ Currently, Zapdosbot is in public beta in Zapdos26's channel (https://www.twitch
 
 Also, check back often if an issue is found, because more likely than not I would have already discovered it and fixed it :) 
 If you have any questions, feel free to tweet me at @zapdos26.
+
+If you are planning on making the bot publicly based, please give credit by posting the link to this Github page. :) 
